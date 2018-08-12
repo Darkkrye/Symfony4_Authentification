@@ -1,0 +1,36 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    providers:
+        our_db_provider:
+            entity:
+                class: App\Entity\User
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            pattern:    ^/
+            http_basic: ~
+            user_checker: App\Security\UserChecker
+            provider: our_db_provider
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            form_login:
+                login_path: connexion
+                check_path: connexion
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path: /deconnexion
+                target: /
+            switch_user: ~
+
+    role_hierarchy:
+        # un membre avec le ROLE_ADMIN aura également le ROLE_USER
+        ROLE_ADMIN: ROLE_USER
+        # Le ROLE_SUPER_ADMIN avec le ROLE_ALLOWED_TO_SWITCH qui permet de s'authentifier en se faisant passer pour n'importe quel membre. Particulièrement utile pour débugger son code.
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
