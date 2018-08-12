@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium-6 medium-offset-3 large-4 large-offset-4 cell">
+            {{ form_row(form.username) }}
+
+        </div>
+        <div class="small-12 medium-6 medium-offset-3 large-4 large-offset-4 cell">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="small-12 medium-6 medium-offset-3 large-4 large-offset-4 cell">
+            {{ form_row(form.plainPassword.first) }}
+        </div>
+        <div class="small-12 medium-6 medium-offset-3 large-4 large-offset-4 cell">
+            {{ form_row(form.plainPassword.second) }}
+        </div>
+
+        <div class="small-12 medium-6 medium-offset-3 large-4 large-offset-4 cell">
+            <button type="submit" class="button">Valider</button>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+
+
